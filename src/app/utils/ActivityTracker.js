@@ -30,13 +30,13 @@ export default function(tagName, trackingId) {
     console.log('cookie location info:', domain, referrer);
 
     // get cookie
-    const activityTag = Cookies.getJSON(cookieName);
+    const activityTag = Cookies.get(cookieName);
 
     // check if exist cookie
     if (activityTag === undefined) {
         const data = {};
         data[tagName] = { isVisit: 0, isReg: 0 };
-        Cookies.set(cookieName, data, { expires: expiresTime, domain });
+        Cookies.set(cookieName, JSON.stringify(data), { expires: expiresTime, domain });
     } else if (Object.keys(activityTag).indexOf(tagName) === -1) {
         activityTag[tagName] = { isVisit: 0, isReg: 0 };
         Cookies.set(cookieName, activityTag, { expires: expiresTime, domain });
